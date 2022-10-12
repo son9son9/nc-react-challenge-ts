@@ -18,6 +18,7 @@ const ThemeButton = styled.div`
   background-color: #ffaa20;
   border-radius: 10px;
   cursor: pointer;
+  user-select: none;
 
   transition: 0.2s;
   &:hover {
@@ -28,19 +29,19 @@ const ThemeButton = styled.div`
     transition: 0.1s;
   }
 `;
-const CoinTitle = styled.div`
+const CoinWrapper = styled.div`
   width: 160px;
   height: 40px;
   padding: 20px;
   margin: 20px 0;
-  background-color: beige;
+  background-color: #ffc10726;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   cursor: pointer;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: none;
   font-size: 1.2rem;
   font-weight: 600;
 
@@ -89,8 +90,20 @@ function Coins() {
         ? "Loading ..."
         : coins.map((props) => {
             return (
-              <Link to={`/${props.id}`}>
-                <CoinTitle>{props.name + "  ➡️"}</CoinTitle>
+              <Link
+                to={`/${props.id}`}
+                state={{ coinName: props.name }}
+                style={{ display: "block", width: "fit-content" }}
+                key={props.id}
+              >
+                <CoinWrapper>
+                  <img
+                    src={`https://coinicons-api.vercel.app/api/icon/${props.symbol.toLowerCase()}`}
+                    alt="logo"
+                    style={{ width: "40px", height: "40px", paddingRight: "20px" }}
+                  />
+                  {props.name}
+                </CoinWrapper>
               </Link>
             );
           })}
