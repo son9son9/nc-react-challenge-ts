@@ -1,34 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { arrayBuffer } from "stream/consumers";
 import styled from "styled-components";
-import Coin from "./Coin";
 
 const Wrapper = styled.div`
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
+  padding-top: 60px;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
 `;
-const ThemeButton = styled.div`
-  font-size: 0.9rem;
-  padding: 12px;
-  width: fit-content;
-  height: fit-content;
-  text-align: center;
-  background-color: #ffaa20;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
 
-  transition: 0.2s;
-  &:hover {
-    background-color: #a5e55a;
-  }
-  &:active {
-    transform: translateY(4px);
-    transition: 0.1s;
-  }
-`;
 const CoinWrapper = styled.div`
   width: 160px;
   height: 40px;
@@ -65,17 +47,12 @@ function Coins() {
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const changeTheme = () => {
-    console.log("테마 변경 미구현 ㅋ");
-  };
-
   useEffect(() => {
     axios
       .get("https://api.coinpaprika.com/v1/coins")
       .then((res) => {
         setCoins(res.data.slice(0, 100));
         setIsLoading(false);
-        console.log(res.data[0]);
       })
       .catch(() => {
         console.log("err");
@@ -84,8 +61,6 @@ function Coins() {
 
   return (
     <Wrapper>
-      <h1>Coin Mandarin 🍊</h1>
-      <ThemeButton onClick={changeTheme}>Change Theme</ThemeButton>
       {isLoading
         ? "Loading ..."
         : coins.map((props) => {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import Header from "./components/Header";
 import Router from "./Router";
+import { darkTheme, lightTheme } from "./theme";
 
 const AppWrapper = styled.div`
   a {
@@ -10,10 +12,14 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
+  const [toggleTheme, setToggleTheme] = useState(lightTheme);
   return (
-    <AppWrapper>
-      <Router />
-    </AppWrapper>
+    <ThemeProvider theme={toggleTheme}>
+      <AppWrapper>
+        <Header />
+        <Router />
+      </AppWrapper>
+    </ThemeProvider>
   );
 }
 
