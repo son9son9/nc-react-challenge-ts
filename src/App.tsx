@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Router from "./Router";
 import { darkTheme, lightTheme } from "./theme";
+import "./reset.css";
 
 const AppWrapper = styled.div`
   a {
